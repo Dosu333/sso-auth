@@ -19,7 +19,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from .models import User, Token
-from .permissions import IsAdmin, IsRegularUser, IsSuperAdmin
+from .permissions import *
 from .serializers import (CreateUserSerializer, ListUserSerializer, AuthTokenSerializer, CustomObtainTokenPairSerializer,
                           VerifyTokenSerializer, InitializePasswordResetSerializer, CreatePasswordSerializer)
 from .tasks import send_registration_email, send_password_reset_email
