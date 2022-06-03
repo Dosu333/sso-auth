@@ -18,12 +18,13 @@ from django.utils.crypto import get_random_string
 
 
 USER_ROLE = (
-    ('CONSUMER', 'CONSUMER'),
+    # ('CONSUMER', 'CONSUMER'),
     ('ADMIN', 'ADMIN'),
-    ('RESTAURANT', 'RESTAURANT'),
-    ('DRIVER', 'DRIVER'),
-    ('ORDERADMIN', 'ORDERADMIN'),
-    ('STORE_OWNER', 'STORE_OWNER')
+    # ('RESTAURANT', 'RESTAURANT'),
+    # ('DRIVER', 'DRIVER'),
+    ('SUPERADMIN', 'SUPERADMIN'),
+    ('STORE_OWNER', 'STORE_OWNER'),
+    ('REGULAR', 'REGULAR'),
 )
 
 GENDER_OPTION = (
