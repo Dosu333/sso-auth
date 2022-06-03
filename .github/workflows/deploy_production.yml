@@ -21,3 +21,4 @@ jobs:
           PORT: ${{ secrets.PORT }}
           PASSWORD: ${{ secrets.SSHKEY }}
           script: cd ${{ secrets.PROJECT_PATH }} && ls && git pull && docker-compose up --build -d
+          
