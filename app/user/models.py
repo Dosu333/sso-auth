@@ -18,10 +18,10 @@ from django.utils.crypto import get_random_string
 
 
 USER_ROLE = (
-    # ('CONSUMER', 'CONSUMER'),
+    ('CONSUMER', 'CONSUMER'),
     ('ADMIN', 'ADMIN'),
-    # ('RESTAURANT', 'RESTAURANT'),
-    # ('DRIVER', 'DRIVER'),
+    ('RESTAURANT', 'RESTAURANT'),
+    ('DRIVER', 'DRIVER'),
     ('SUPERADMIN', 'SUPERADMIN'),
     ('STORE_OWNER', 'STORE_OWNER'),
     ('REGULAR', 'REGULAR'),
