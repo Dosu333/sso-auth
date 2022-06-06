@@ -40,4 +40,5 @@ django-health-check==3.16.5
 psutil==5.9.0
 # django-debug-toolbar==3.2.4
 fcm-django
+import-export
 

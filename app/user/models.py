@@ -43,6 +43,12 @@ def default_role():
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    HOW_EXPENSIVE = [
+        ('1', 'CHEAP'),
+        ('2', 'AVERAGE'),
+        ('3', 'EXPENSIVE')
+    ]
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
         _('email address'), null=True, blank=True, unique=True)
@@ -50,15 +56,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     firstname = models.CharField(max_length=255, blank=True, null=True)
     lastname = models.CharField(max_length=255, blank=True, null=True)
     image = models.FileField(upload_to='users/', blank=True, null=True)
-    phone = models.CharField(max_length=17, blank=True, null=True)
+    phone = models.CharField(max_length=14, blank=True, null=True)
     roles = ArrayField(models.CharField(max_length=20, blank=True,
-                                        choices=USER_ROLE), default=default_role, size=4)
+                                        choices=USER_ROLE), default=default_role, size=6)
+    expensive_rate = models.CharField(max_length=10, choices=HOW_EXPENSIVE,null=True, blank=True)
+    liked_restaurants = models.ManyToManyField('self', blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     verified = models.BooleanField(default=False)
+    referred_by = models.CharField(max_length=225, blank=True, null=True)
+    referred_by_store_owner = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
+    referred_by_hero = models.CharField(max_length=225, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

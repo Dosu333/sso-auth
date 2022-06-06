@@ -17,8 +17,8 @@ from .tasks import send_new_user_email, send_password_reset_email
 class ListUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['id', 'firstname', 'lastname', 'email', 'roles',
-                  'image', 'verified', 'last_login', 'created_at']
+        fields = ['id', 'firstname', 'lastname', 'email', 'phone','roles',
+                  'expensive_rate','liked_restaurants','image', 'verified', 'referred_by','last_login', 'created_at']
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('id', 'email', 'password', 'firstname', 'lastname', 'verified',
-                  'phone', 'image', 'roles', 'last_login', 'created_at')
+                  'phone', 'image', 'roles', 'referred_by','last_login', 'created_at')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 8},
                         'last_login': {'read_only': True}}
 
