@@ -17,4 +17,4 @@ class Wallet(models.Model):
     virtual_bank = models.CharField(max_length=225, blank=True, null=True)
 
     def __str__(self):
-        return self.store_owner.store_name
+        return self.owner.firstname

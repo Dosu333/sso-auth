@@ -10,6 +10,7 @@ from django.core.exceptions import PermissionDenied
 from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 from email_validator import validate_email, EmailNotValidError
+from boxin.models import BoxinHero
 from .models import Token, User
 from .tasks import send_new_user_email, send_password_reset_email
 
@@ -46,10 +47,22 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
+        user = None
+        referral =  validated_data.pop('referred_by')
+        
+        if referral:
+            if  BoxinHero.objects.filter(code=referral).exists():
+                hero = BoxinHero.objects.get(code=referral)
+                user = User.objects.create_user(referred_by_hero=hero.fullname, **validated_data)
+            else:
+                store = User.objects.get(id=str(referral))
+                user = User.objects.create_user(referred_by_store_owner=store,**validated_data)
+        else:
+            user = User.objects.create_user(**validated_data)
+
         token, _ = Token.objects.update_or_create(
             user=user, token_type='ACCOUNT_VERIFICATION',
-            defaults={'user': user, 'token_type': 'ACCOUNT_VERIFICATION', 'token': get_random_string(120)})
+            defaults={'user': user, 'token_type': 'ACCOUNT_VERIFICATION', 'token': get_random_string(6)})
         user_data = {'id': user.id, 'email': user.email, 'fullname': f"{user.lastname} {user.firstname}",
                      'url': f"{settings.CLIENT_URL}/verify-user/?token={token.token}"}
         send_new_user_email.delay(user_data)
