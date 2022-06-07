@@ -36,6 +36,7 @@ services:
     image: bitnami/redis:latest
     env_file:
       - ./.env
+    user: root
     ports:
       - "6379:6379"
 #    volumes:
