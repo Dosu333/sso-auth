@@ -7,7 +7,7 @@ import uuid
 
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    
+
 
 class BoxinHero(BaseModel):
     fullname = models.CharField(max_length=255, blank=True, null=True)
@@ -44,7 +44,8 @@ class NotificationMessage(BaseModel):
     message = models.TextField(null=True, blank=True)
     date_and_time_of_execution = models.DateTimeField(null=True, blank=True)
     time_of_execution = models.TimeField(null=True, blank=True)
-    for_all_consumers = models.BooleanField(default=False)
-    for_all_restaurants = models.BooleanField(default=False)
+    for_all_users = models.BooleanField(default=False)
+    for_regular_users = models.BooleanField(default=False)
+    for_store_owners = models.BooleanField(default=False)
     specific_users = models.ManyToManyField(get_user_model(), blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

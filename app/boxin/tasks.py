@@ -22,17 +22,22 @@ def send_notify():
                                    )
                                        )
 
-    if today_notification.filter(for_all_consumers=True).exists():
-        consumer_notification = today_notification.get(for_all_consumers=True)
-        users_id = get_user_model().objects.filter(roles__contains=['CONSUMER'])
-        bulk_notification(user_ids=users_id, title=consumer_notification.title, message=consumer_notification.message)
+    if today_notification.filter(for_all_users=True).exists():
+        general_notification = today_notification.get(for_all_users=True)
+        users_id = get_user_model().objects.all()
+        bulk_notification(user_ids=users_id, title=general_notification.title, message=general_notification.message)
 
-    if today_notification.filter(for_all_restaurants=True).exists():
-        restaurant_notification = today_notification.get(for_all_restaurants=True)
-        users_id = get_user_model().objects.filter(roles__contains=['RESTAURANT'])
-        bulk_notification(user_ids=users_id, title=restaurant_notification.title, message=restaurant_notification.message)
+    if today_notification.filter(for_store_owners=True).exists():
+        store_notification = today_notification.get(for_store_owners=True)
+        users_id = get_user_model().objects.filter(roles__contains=['STORE_OWNER'])
+        bulk_notification(user_ids=users_id, title=store_notification.title, message=store_notification.message)
 
-    if today_notification.filter(Q(for_all_restaurants=False) & Q(for_all_consumers=False)).exists():
-        specific_notification = today_notification.filter(Q(for_all_restaurants=False) & Q(for_all_consumers=False))
+    if today_notification.filter(for_regular_users=True).exists():
+        regular_notification = today_notification.get(for_regular_users=True)
+        users_id = get_user_model().objects.filter(roles__contains=['REGULAR'])
+        bulk_notification(user_ids=users_id, title=regular_notification.title, message=regular_notification.message)
+
+    if today_notification.filter(Q(for_all_users=False) & Q(for_store_owners=False) & Q(for_regular_users=False)).exists():
+        specific_notification = today_notification.filter(Q(for_all_users=False) & Q(for_store_owners=False) & Q(for_regular_users=False))
         for item in specific_notification:
             bulk_notification(user_ids=item.specific_users.all(), title=item.title, message=item.message)
