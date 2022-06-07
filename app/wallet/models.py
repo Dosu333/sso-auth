@@ -8,7 +8,7 @@ class Wallet(models.Model):
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="wallets", null=True, blank=True)
     available_funds = models.DecimalField(max_digits=14, decimal_places=2, default=0.00, null=True, blank=True)
     boxin_credits = models.DecimalField(max_digits=14, decimal_places=2, default=0.00, null=True, blank=True)
-    escrow  = models.DecimalField(max_digits=14, decimal_places=2, blank=True, null=True)
+    escrow  = models.DecimalField(max_digits=14, decimal_places=2, default=0.00, blank=True, null=True)
     account_number = models.CharField(max_length=10, null=True, blank=True)
     bank = models.CharField(max_length=255, blank=True, null=True)
     bvn = models.CharField(max_length=11, blank=True, null=True)

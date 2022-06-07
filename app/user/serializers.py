@@ -11,6 +11,7 @@ from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 from email_validator import validate_email, EmailNotValidError
 from boxin.models import BoxinHero
+from wallet.models import Wallet
 from .models import Token, User
 from .tasks import send_new_user_email, send_password_reset_email
 
@@ -59,6 +60,8 @@ class CreateUserSerializer(serializers.ModelSerializer):
                 user = User.objects.create_user(referred_by_store_owner=store,**validated_data)
         else:
             user = User.objects.create_user(**validated_data)
+
+        Wallet.objects.create(owner=user)
 
         token, _ = Token.objects.update_or_create(
             user=user, token_type='ACCOUNT_VERIFICATION',
