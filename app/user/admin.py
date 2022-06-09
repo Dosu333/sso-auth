@@ -8,7 +8,7 @@ from .models import User, Token
 class UserResource(resources.ModelResource):
     class Meta:
         model = User
-        fields = ('id', 'firstname', 'lastname', 'email', 'phone', 'verified')
+        fields = ('id', 'firstname', 'lastname', 'email', 'phone', 'verified', 'password')
 
 class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
     resource_class =UserResource
