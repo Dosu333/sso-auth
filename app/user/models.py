@@ -60,7 +60,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     roles = ArrayField(models.CharField(max_length=20, blank=True,
                                         choices=USER_ROLE), default=default_role, size=6)
     expensive_rate = models.CharField(max_length=10, choices=HOW_EXPENSIVE,null=True, blank=True)
-    liked_restaurants = models.ManyToManyField('self', blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True)
