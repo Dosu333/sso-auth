@@ -33,10 +33,9 @@ services:
       - db
 
   redis:
-    image: bitnami/redis:latest
+    image: redis:alpine
     env_file:
       - ./.env
-    user: root
     ports:
       - "6379:6379"
 #    volumes:
