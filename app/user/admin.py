@@ -21,7 +21,7 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal Info'), {
-            'fields': ('lastname', 'firstname', 'phone', 'roles', 'image','expensive_rate','liked_restaurants')}),
+            'fields': ('lastname', 'firstname', 'phone', 'roles', 'image','expensive_rate')}),
         (
             _('Permissions'),
             {'fields': ('is_active', 'is_staff', 'is_superuser', 'verified', 'referred_by', 'referred_by_hero', 'referred_by_store_owner')}

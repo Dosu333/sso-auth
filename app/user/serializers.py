@@ -20,7 +20,7 @@ class ListUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ['id', 'firstname', 'lastname', 'email', 'phone','roles',
-                  'expensive_rate','liked_restaurants','image', 'verified', 'referred_by','last_login', 'created_at']
+                  'expensive_rate','image', 'verified', 'referred_by','last_login', 'created_at']
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
