@@ -20,7 +20,7 @@ class ListUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ['id', 'firstname', 'lastname', 'email', 'phone','roles',
-                  'expensive_rate','image', 'verified', 'referred_by','last_login', 'created_at']
+                  'businessname','image', 'verified', 'referred_by','last_login', 'created_at', 'address', 'state']
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
@@ -92,6 +92,9 @@ class CustomObtainTokenPairSerializer(TokenObtainPairSerializer):
         token.id = user.id
         token['email'] = user.email
         token['roles'] = user.roles
+        token['businessname'] = user.businessname
+        token['address'] = user.address
+        token['state'] = user.state
         if user.firstname and user.lastname:
             token['fullname'] = user.firstname + ' ' + user.lastname
         if user.image:

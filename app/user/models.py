@@ -59,7 +59,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=14, blank=True, null=True)
     roles = ArrayField(models.CharField(max_length=20, blank=True,
                                         choices=USER_ROLE), default=default_role, size=6)
-    expensive_rate = models.CharField(max_length=10, choices=HOW_EXPENSIVE,null=True, blank=True)
+    businessname =  models.CharField(max_length=255, null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    state = models.CharField(max_length=255, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True)
