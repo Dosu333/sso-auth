@@ -68,7 +68,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
             user=user, token_type='ACCOUNT_VERIFICATION',
             defaults={'user': user, 'token_type': 'ACCOUNT_VERIFICATION', 'token': get_random_string(120)})
         user_data = {'id': user.id, 'email': user.email, 'fullname': f"{user.lastname} {user.firstname}",
-                     'url': f"{settings.CLIENT_URL}/signup/?token={token.token}"}
+                     'url': f"{settings.TEST_CLIENT_URL}/signup/?token={token.token}"}
         send_new_user_email.delay(user_data)
         return user
 

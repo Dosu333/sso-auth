@@ -17,7 +17,7 @@ def send_email(subject, email_from, html_alternative, text_alternative):
 def resend_mail(user):
     token = Token.objects.filter(user=user).first()
     user_data = {'id': user.id, 'email': user.email, 'fullname': f"{user.lastname} {user.firstname}",
-                    'url': f"{settings.CLIENT_URL}/signup/?token={token.token}"}
+                    'url': f"{settings.TEST_CLIENT_URL}/signup/?token={token.token}"}
     send_new_user_email(user_data)
 
 

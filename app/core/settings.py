@@ -280,6 +280,7 @@ TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", None)
 TWILIO_NUMBER = 'OYO-EOC'  # os.environ.get("TWILIO_NUMBER")
 
 CLIENT_URL = os.environ.get('CLIENT_URL')
+TEST_CLIENT_URL = os.environ.get('TEST_CLIENT_URL')
 
 
 TOKEN_LIFESPAN = 24  # hours
