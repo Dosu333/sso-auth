@@ -22,7 +22,7 @@ from .models import User, Token
 from .permissions import *
 from .serializers import (CreateUserSerializer, ListUserSerializer, AuthTokenSerializer, CustomObtainTokenPairSerializer,
                           VerifyTokenSerializer, InitializePasswordResetSerializer, CreatePasswordSerializer)
-from .tasks import send_registration_email, send_password_reset_email
+from .tasks import send_registration_email, send_password_reset_email, send_new_user_email
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -81,6 +81,12 @@ class AuthViewsets(viewsets.ModelViewSet):
                     token=request.data.get('token')).first()
                 if token and token.is_valid():
                     return Response({'success': True, 'valid': True}, status=status.HTTP_200_OK)
+                
+                token.token = get_random_string(120)
+                token.save()
+                user_data = {'id': token.user.id, 'email': token.user.email, 'fullname': f"{token.user.lastname} {token.user.firstname}",
+                    'url': f"{settings.CLIENT_URL}/verify-user/?token={token.token}"}
+                send_new_user_email.delay(user_data)
                 return Response({'success': True, 'valid': False}, status=status.HTTP_200_OK)
             return Response({'success': False, 'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
         except Exception as e:
