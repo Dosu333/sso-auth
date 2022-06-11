@@ -14,6 +14,7 @@ from boxin.models import BoxinHero
 from wallet.models import Wallet
 from .models import Token, User
 from .tasks import send_new_user_email, send_password_reset_email
+from .utils import resend_mail
 
 
 class ListUserSerializer(serializers.ModelSerializer):
@@ -67,7 +68,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
             user=user, token_type='ACCOUNT_VERIFICATION',
             defaults={'user': user, 'token_type': 'ACCOUNT_VERIFICATION', 'token': get_random_string(120)})
         user_data = {'id': user.id, 'email': user.email, 'fullname': f"{user.lastname} {user.firstname}",
-                     'url': f"{settings.CLIENT_URL}/verify-user/?token={token.token}"}
+                     'url': f"{settings.CLIENT_URL}/signup/?token={token.token}"}
         send_new_user_email.delay(user_data)
         return user
 
@@ -85,6 +86,7 @@ class CustomObtainTokenPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         if not user.verified:
+            resend_mail(user)
             raise exceptions.AuthenticationFailed(
                 _('Account not yet verified.'), code='authentication')
         token = super().get_token(user)

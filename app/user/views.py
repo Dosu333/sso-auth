@@ -79,15 +79,19 @@ class AuthViewsets(viewsets.ModelViewSet):
             if serializer.is_valid():
                 token = Token.objects.filter(
                     token=request.data.get('token')).first()
-                if token and token.is_valid():
-                    return Response({'success': True, 'valid': True}, status=status.HTTP_200_OK)
-                
-                token.token = get_random_string(120)
-                token.save()
-                user_data = {'id': token.user.id, 'email': token.user.email, 'fullname': f"{token.user.lastname} {token.user.firstname}",
-                    'url': f"{settings.CLIENT_URL}/verify-user/?token={token.token}"}
-                send_new_user_email.delay(user_data)
-                return Response({'success': True, 'valid': False}, status=status.HTTP_200_OK)
+                if token:
+                    if token.is_valid():
+                        if token.user.verified:
+                            return Response({'success': False, 'errors': 'user is verified.'}, status.HTTP_400_BAD_REQUEST)
+                        return Response({'success': True, 'valid': True}, status=status.HTTP_200_OK)
+                    
+                    token.token = get_random_string(120)
+                    token.save()
+                    user_data = {'id': token.user.id, 'email': token.user.email, 'fullname': f"{token.user.lastname} {token.user.firstname}",
+                        'url': f"{settings.CLIENT_URL}/signup/?token={token.token}"}
+                    send_new_user_email.delay(user_data)
+                    return Response({'success': True, 'valid': False}, status=status.HTTP_200_OK)
+                return Response({'success': False, 'errors': 'Token does not exist'}, status.HTTP_400_BAD_REQUEST)
             return Response({'success': False, 'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             capture_exception(e)
