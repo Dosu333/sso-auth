@@ -18,7 +18,7 @@ def resend_mail(user):
     token = Token.objects.filter(user=user).first()
     user_data = {'id': user.id, 'email': user.email, 'fullname': f"{user.lastname} {user.firstname}",
                     'url': f"{settings.TEST_CLIENT_URL}/signup/?token={token.token}"}
-    send_new_user_email(user_data)
+    send_new_user_email.delay(user_data)
 
 
 async def create_file_from_image(url):
