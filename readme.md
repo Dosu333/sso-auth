@@ -7,5 +7,5 @@
 Access the doc on
 
 ```
-localhost:8000/api/v1/doc
+localhost:10007/api/v1/doc
 ```
