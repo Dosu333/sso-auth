@@ -83,6 +83,7 @@ class AuthViewsets(viewsets.ModelViewSet):
                     if token.is_valid():
                         if token.user.verified:
                             return Response({'success': False, 'errors': 'user is verified.'}, status.HTTP_400_BAD_REQUEST)
+                        token.verify_user()
                         return Response({'success': True, 'valid': True}, status=status.HTTP_200_OK)
                     
                     token.token = get_random_string(120)
