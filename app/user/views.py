@@ -108,11 +108,11 @@ class AuthViewsets(viewsets.ModelViewSet):
                 user = get_user_model().objects.filter(email=email, is_active=True).first()
                 if not user:
                     return Response({'success': False, 'errors': 'user with this record not found'}, status=status.HTTP_400_BAD_REQUEST)
-                token, created = Token.objects.update_or_create(user=user, type='PASSWORD_RESET', defaults={
+                token, created = Token.objects.update_or_create(user=user, token_type='PASSWORD_RESET', defaults={
                                                                 'user': user, 'token_type': 'PASSWORD_RESET',
                                                                 'token': get_random_string(120)})
                 email_data = {'fullname': str(user.firstname).capitalize(),
-                              'email': user.email, 'url': f"{settings.TEST_CLIENT_URL}/reset-password/?token={token.token}"}
+                                'email': user.email, 'url': f"{settings.TEST_CLIENT_URL}/reset-password/?token={token.token}"}
                 send_password_reset_email.delay(email_data)
                 return Response({'success': True, 'message': 'Email successfully sent to registered email'}, status=status.HTTP_200_OK)
             return Response({'success': False, 'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
