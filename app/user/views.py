@@ -88,7 +88,7 @@ class AuthViewsets(viewsets.ModelViewSet):
                     
                     token.token = get_random_string(120)
                     token.save()
-                    user_data = {'id': token.user.id, 'email': token.user.email, 'fullname': token.user.firstname.capitalize(),
+                    user_data = {'id': token.user.id, 'email': token.user.email, 'fullname': str(token.user.firstname).capitalize(),
                         'url': f"{settings.TEST_CLIENT_URL}/signup/?token={token.token}"}
                     send_new_user_email.delay(user_data)
                     return Response({'success': True, 'valid': False}, status=status.HTTP_200_OK)
@@ -111,7 +111,7 @@ class AuthViewsets(viewsets.ModelViewSet):
                 token, created = Token.objects.update_or_create(user=user, type='PASSWORD_RESET', defaults={
                                                                 'user': user, 'token_type': 'PASSWORD_RESET',
                                                                 'token': get_random_string(120)})
-                email_data = {'fullname': user.firstname.capitalize(),
+                email_data = {'fullname': str(user.firstname).capitalize(),
                               'email': user.email, 'url': f"{settings.TEST_CLIENT_URL}/reset-password/?token={token.token}"}
                 send_password_reset_email.delay(email_data)
                 return Response({'success': True, 'message': 'Email successfully sent to registered email'}, status=status.HTTP_200_OK)
