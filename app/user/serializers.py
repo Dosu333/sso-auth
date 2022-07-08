@@ -104,6 +104,8 @@ class CustomObtainTokenPairSerializer(TokenObtainPairSerializer):
         token['address'] = user.address
         token['state'] = user.state
         if user.firstname and user.lastname:
+            token['firstname'] = user.firstname
+            token['lastname'] = user.lastname
             token['fullname'] = user.firstname + ' ' + user.lastname
         if user.image:
             token['image'] = user.image.url
