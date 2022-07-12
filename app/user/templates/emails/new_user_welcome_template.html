@@ -17,7 +17,7 @@
               color: #161531;
             "
           >
-            <h5 style="margin: 20px auto">Welcome to the Boxin Family</h5>
+            {% comment %} <h5 style="margin: 20px auto">Welcome to the Boxin Family</h5> {% endcomment %}
           </span>
         </font>
       </div>
@@ -39,10 +39,12 @@
               color: #57697e;
             "
           >
-            Hello <strong> {{ fullname }}</strong>, <br /><br />
-            Welcome to Boxin!<br />
-            Kindly follow the link below to verify your account. Note that it is
-            only valid for 24 hours<br />
+            Hi <strong> {{ fullname }}</strong>, <br /><br />
+            {% comment %} Welcome to Boxin!<br /> {% endcomment %}
+            Click the link below to verify your email.<br />
+            Thanks,
+            <p>Boxin.</p>
+
           </span>
         </font>
       </div>
