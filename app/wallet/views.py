@@ -42,10 +42,11 @@ def webhook(request):
             # print(request.data)
             ref = request.data['data']['reference']
             app = request.data['data']['metadata']['app']
+            amount = request.data['data']['amount']
             # user = request.data['data']['metadata']['user_id']
             try:
                 if app == 'delivery-dashboard':
-                    url = f'https://delivery.boxin.ng/api/v1/deliveries/update-offstordelivery/?ref={ref}'
+                    url = f'https://delivery.boxin.ng/api/v1/deliveries/update-offstordelivery/?ref={ref}&amount={amount}'
                     # user = get_user_model().objects.get(id=user)
                     # transaction, created = Transaction.objects.update_or_create(reference=ref, owner=user, amount=amount, defaults={'status': 'SUCCESSFUL'})
                     res = requests.get(url, verify=False)
