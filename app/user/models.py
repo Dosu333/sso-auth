@@ -69,7 +69,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(auto_now=True)
     verified = models.BooleanField(default=False)
     referred_by = models.CharField(max_length=225, blank=True, null=True)
-    referred_by_store_owner = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
+    referred_by_user = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
     referred_by_hero = models.CharField(max_length=225, blank=True, null=True)
 
     USERNAME_FIELD = 'email'

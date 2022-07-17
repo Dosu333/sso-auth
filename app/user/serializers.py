@@ -64,7 +64,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
                 user = User.objects.create_user(referred_by_hero=hero.fullname, **validated_data)
             else:
                 store = User.objects.get(id=str(referral))
-                user = User.objects.create_user(referred_by_store_owner=store,**validated_data)
+                user = User.objects.create_user(referred_by_user=store,**validated_data)
         else:
             user = User.objects.create_user(**validated_data)
 

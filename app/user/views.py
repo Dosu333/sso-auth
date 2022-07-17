@@ -112,7 +112,7 @@ class AuthViewsets(viewsets.ModelViewSet):
                                                                 'user': user, 'token_type': 'PASSWORD_RESET',
                                                                 'token': get_random_string(120)})
                 email_data = {'fullname': str(user.firstname).capitalize(),
-                                'email': user.email, 'url': f"{settings.CLIENT_URL}/reset-password/?token={token.token}"}
+                                'email': user.email, 'url': f"{settings.CLIENT_URL}/forgotpass/?token={token.token}"}
                 send_password_reset_email.delay(email_data)
                 return Response({'success': True, 'message': 'Email successfully sent to registered email'}, status=status.HTTP_200_OK)
             return Response({'success': False, 'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)

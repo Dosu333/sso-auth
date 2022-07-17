@@ -10,7 +10,7 @@ class UserResource(resources.ModelResource):
     class Meta:
         model = User
         fields = ('id', 'firstname', 'lastname', 'email', 'phone', 'verified', 'password', 'roles', 'is_active',
-                  'is_staff', 'is_superuser', 'referred_by', 'referred_by_hero', 'referred_by_store_owner')
+                  'is_staff', 'is_superuser', 'referred_by', 'referred_by_hero', 'referred_by_user')
 
 
 class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
@@ -29,7 +29,7 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         (
             _('Permissions'),
             {'fields': ('is_active', 'is_staff', 'is_superuser', 'verified',
-                        'referred_by', 'referred_by_hero', 'referred_by_store_owner')}
+                        'referred_by', 'referred_by_hero', 'referred_by_user')}
         ),
         (_('Important Info'), {'fields': ('last_login',)})
     )
