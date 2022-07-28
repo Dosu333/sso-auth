@@ -15,6 +15,9 @@ class BoxinHero(BaseModel):
     code = models.CharField(max_length=7, blank=True, null=True, unique=True)
     store_link = models.SlugField(max_length=255,blank=True, null=True)
 
+    class Meta:
+        ordering = ('fullname', )
+
     def __str__(self):
         return self.fullname
     
