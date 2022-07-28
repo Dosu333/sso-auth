@@ -33,7 +33,8 @@ class BoxinHero(BaseModel):
         self.store_link = f"https://login.boxin.ng/signup?reffered_by={self.code}"
 
     def save(self, *args, **kwargs):
-        self.create_code()
+        if not self.code:
+            self.create_code()
         super().save(*args, **kwargs)
 
 
