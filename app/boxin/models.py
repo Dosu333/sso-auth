@@ -10,10 +10,16 @@ class BaseModel(models.Model):
 
 
 class BoxinHero(BaseModel):
+    AFFILIATE_CHOICES = [
+        ('ASSOCIATE', 'ASSOCIATE'),
+        ('HERO', 'HERO')
+    ]
+
     fullname = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(blank=True, null=True, unique=True)
     code = models.CharField(max_length=7, blank=True, null=True, unique=True)
-    store_link = models.SlugField(max_length=255,blank=True, null=True)
+    affiliate_type = models.CharField(max_length=10, choices=AFFILIATE_CHOICES, null=True,blank=True)
+    referral_link = models.SlugField(max_length=255,blank=True, null=True)
 
     class Meta:
         ordering = ('fullname', )
@@ -24,7 +30,7 @@ class BoxinHero(BaseModel):
     def create_code(self):
         splitname = self.fullname.split()
         self.code = splitname[0][:3] + splitname[1][:2] + get_random_string(2)
-        self.store_link = f"https://store.boxin.ng/?uid={self.code}"
+        self.store_link = f"https://login.boxin.ng/signup?reffered_by={self.code}"
 
     def save(self, *args, **kwargs):
         self.create_code()
