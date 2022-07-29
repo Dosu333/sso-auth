@@ -30,7 +30,7 @@ class BoxinHero(BaseModel):
     def create_code(self):
         splitname = self.fullname.split()
         self.code = splitname[0][:3] + splitname[1][:2] + get_random_string(2)
-        self.referral_link = f"https://login.boxin.ng/signup?reffered_by={self.code}"
+        self.referral_link = f"https://login.boxin.ng/signup?referred_by={self.code}"
 
     def save(self, *args, **kwargs):
         if not self.code:
