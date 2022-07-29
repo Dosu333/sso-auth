@@ -85,7 +85,7 @@ class AuthViewsets(viewsets.ModelViewSet):
                         if token.user.verified:
                             return Response({'success': False, 'errors': 'user is verified.'}, status.HTTP_400_BAD_REQUEST)
                         token.verify_user()
-                        add_user_to_contacts(email=token.user.email, first_name=token.user.firstname, last_name=token.user.lastname)
+                        # add_user_to_contacts(email=token.user.email, first_name=token.user.firstname, last_name=token.user.lastname)
                         return Response({'success': True, 'valid': True}, status=status.HTTP_200_OK)
                     
                     token.token = get_random_string(120)
