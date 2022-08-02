@@ -45,7 +45,7 @@ def send_password_reset_email(email_data):
 @APP.task()
 def admin_marketplace_notify():
     client = Client()
-    admin_to_numbers = ['+2347056918098', '+2348136800327', '+2349077499434']
+    admin_to_numbers = ['+2347056918098', '+2348136800327', '+2349077499434', '+2348111761948']
     url = "http://3.14.60.165:6080/api/v1/admin/droppers"
     res = requests.get(url, verify=False)
     response = res.json()
