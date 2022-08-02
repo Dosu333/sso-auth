@@ -42,18 +42,18 @@ def send_password_reset_email(email_data):
                email_data['email'], html_alternative, text_alternative)
 
 
-# @APP.task()
-# def admin_marketplace_notify():
-#     client = Client()
-#     admin_to_numbers = ['+2347056918098', '+2348136800327', '+2349077499434']
-#     url = "http://3.14.60.165:6080/api/v1/admin/droppers"
-#     res = requests.get(url, verify=False)
-#     response = res.json()
-#     now = datetime.now()
+@APP.task()
+def admin_marketplace_notify():
+    client = Client()
+    admin_to_numbers = ['+2347056918098', '+2348136800327', '+2349077499434']
+    url = "http://3.14.60.165:6080/api/v1/admin/droppers"
+    res = requests.get(url, verify=False)
+    response = res.json()
+    now = datetime.now()
     
-#     for order in response['orders']:
-#         if str(now.date()) == order['date'] and datetime.fromtimestamp(float(order['timestamp'])).time().minute == now.time().minute:
-#             items = []
-#             body = f"{order['customer_name']} just ordered a meal from {order['store_name']}. The meal is to be delivered to {order['customer_location']}. You can reach {order['customer_name']} via this phone number {order['customer_phone_number']}. This order is {order['status']}. For more info on this order, check the app."
-#             for number in admin_to_numbers:
-#                 client.messages.create(from_='+12312625574', to=number, body=body)
+    for order in response['orders']:
+        if str(now.date()) == order['date'] and datetime.fromtimestamp(float(order['timestamp'])).time().minute == now.time().minute:
+            items = []
+            body = f"{order['customer_name']} just ordered a meal from {order['store_name']}. The meal is to be delivered to {order['customer_location']}. You can reach {order['customer_name']} via this phone number {order['customer_phone_number']}. This order is {order['status']}. For more info on this order, check the app."
+            for number in admin_to_numbers:
+                client.messages.create(from_='+12312625574', to=number, body=body)
