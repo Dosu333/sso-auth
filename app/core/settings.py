@@ -331,10 +331,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "boxin.tasks.send_notify",
         "schedule": crontab(),
     },
-    "marketplace_notify": {
-        "task": "user.tasks.admin_marketplace_notify",
-        "schedule": crontab()
-    }
+    # "marketplace_notify": {
+    #     "task": "user.tasks.admin_marketplace_notify",
+    #     "schedule": crontab()
+    # }
 }
 
 SWAGGER_SETTINGS = {
