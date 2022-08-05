@@ -334,6 +334,10 @@ CELERY_BEAT_SCHEDULE = {
     "marketplace_notify": {
         "task": "user.tasks.admin_marketplace_notify",
         "schedule": crontab()
+    },
+    "sendgrid": {
+        "task": "user.tasks.send_contacts_to_sendgrid",
+        "schedule": crontab()
     }
 }
 
