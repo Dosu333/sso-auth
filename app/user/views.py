@@ -22,8 +22,8 @@ from .models import User, Token
 from .permissions import *
 from .serializers import (CreateUserSerializer, ListUserSerializer, AuthTokenSerializer, CustomObtainTokenPairSerializer,
                           VerifyTokenSerializer, InitializePasswordResetSerializer, CreatePasswordSerializer)
-from .tasks import send_registration_email, send_password_reset_email, send_new_user_email
-from .utils import add_user_to_contacts
+from .tasks import send_registration_email, send_password_reset_email, send_new_user_email, add_user_to_contacts
+# from .utils import add_user_to_contacts
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -85,7 +85,7 @@ class AuthViewsets(viewsets.ModelViewSet):
                         if token.user.verified:
                             return Response({'success': False, 'errors': 'user is verified.'}, status.HTTP_400_BAD_REQUEST)
                         token.verify_user()
-                        # add_user_to_contacts(email=token.user.email, first_name=token.user.firstname, last_name=token.user.lastname)
+                        add_user_to_contacts.delay(email=token.user.email, first_name=token.user.firstname, last_name=token.user.lastname)
                         return Response({'success': True, 'valid': True}, status=status.HTTP_200_OK)
                     
                     token.token = get_random_string(120)
