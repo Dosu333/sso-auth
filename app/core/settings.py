@@ -335,10 +335,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "user.tasks.admin_marketplace_notify",
         "schedule": crontab()
     },
-    "sendgrid": {
-        "task": "user.tasks.send_contacts_to_sendgrid",
-        "schedule": crontab()
-    }
+    # "sendgrid": {
+    #     "task": "user.tasks.send_contacts_to_sendgrid",
+    #     "schedule": crontab()
+    # }
 }
 
 SWAGGER_SETTINGS = {
