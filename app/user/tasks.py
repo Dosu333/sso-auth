@@ -9,7 +9,7 @@ from core.celery import APP
 from twilio.rest import Client
 from sendgrid import SendGridAPIClient
 from .utils import add_user_to_contacts
-import datetime
+from datetime import datetime
 import requests, time, os
 
 
