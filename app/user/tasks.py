@@ -84,7 +84,7 @@ def admin_marketplace_notify():
             dist = int(order['delivery_distance'])
             fee = 0
 
-            if dist <= 5:
+            if dist <= 4:
                 fee = 200
             else:
                 fee = dist * 50
