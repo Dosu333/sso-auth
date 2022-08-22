@@ -87,7 +87,7 @@ def admin_marketplace_notify():
             if dist <= 4:
                 fee = 200
             else:
-                fee = dist * 50
+                fee = dist * 60
 
             body = f"{order['customer_name']} just ordered a meal from {order['store_name']}. The meal is to be delivered to {order['customer_location']}. You can reach {order['customer_name']} via this phone number {order['customer_phone_number']}. This order is {order['status']}.  The delivery fee is {fee}. For more info on this order, check the app."
             for number in admin_to_numbers:
