@@ -81,7 +81,7 @@ def admin_marketplace_notify():
     
     for order in response['orders']:
         if str(datetime.now().date()) == order['date'] and datetime.fromtimestamp(float(order['timestamp'])).time().minute == (datetime.now().time().minute - 1) and datetime.fromtimestamp(float(order['timestamp'])).time().hour == (datetime.now().time().hour - 1):
-            dist = int(order['delivery_distance'])
+            dist = round(float(order['delivery_distance'])/1000, 1)
             fee = 0
 
             if dist <= 4:
