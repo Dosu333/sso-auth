@@ -77,7 +77,6 @@ def admin_marketplace_notify():
     url = "http://3.14.60.165:6080/api/v1/admin/droppers"
     res = requests.get(url, verify=False)
     response = res.json()
-    now = datetime.now()
     
     for order in response['orders']:
         if str(datetime.now().date()) == order['date'] and datetime.fromtimestamp(float(order['timestamp'])).time().minute == (datetime.now().time().minute - 1) and datetime.fromtimestamp(float(order['timestamp'])).time().hour == (datetime.now().time().hour - 1):
