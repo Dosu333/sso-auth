@@ -82,12 +82,13 @@ def admin_marketplace_notify():
     for order in response['orders']:
         if str(datetime.now().date()) == order['date'] and datetime.fromtimestamp(float(order['timestamp'])).time().minute == (datetime.now().time().minute - 1) and datetime.fromtimestamp(float(order['timestamp'])).time().hour == (datetime.now().time().hour - 1):
             dist = round(float(order['delivery_distance'])/1000, 1)
-            fee = 0
+            fee = order['delivery_fee']
 
-            if dist <= 4:
-                fee = 200
-            else:
-                fee = dist * 60
+            if int(fee) == 0:
+                if dist <= 4:
+                    fee = 200
+                else:
+                    fee = dist * 60
 
             body = f"{order['customer_name']} just ordered a meal from {order['store_name']}. The meal is to be delivered to {order['customer_location']}. You can reach {order['customer_name']} via this phone number {order['customer_phone_number']}. This order is {order['status']}.  The delivery fee is {fee}. For more info on this order, check the app."
             for number in admin_to_numbers:
