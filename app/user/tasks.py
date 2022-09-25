@@ -73,7 +73,7 @@ def add_user_to_contacts(email, first_name, last_name):
 @APP.task()
 def admin_marketplace_notify():
     client = Client()
-    admin_to_numbers = ['+2347056918098', '+2348136800327', '+2349077499434', '+2348111761948']
+    admin_to_numbers = ['+2347056918098', '+2348136800327', '+2349077499434', '+2348111761948', '+2348141202769']
     url = "http://3.14.60.165:6080/api/v1/admin/droppers"
     res = requests.get(url, verify=False)
     response = res.json()
