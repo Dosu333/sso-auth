@@ -73,7 +73,7 @@ def add_user_to_contacts(email, first_name, last_name):
 @APP.task()
 def admin_marketplace_notify():
     client = Client()
-    admin_to_numbers = ['+2347056918098', '+2348136800327', '+2349077499434', '+2348111761948', '+2348141202769']
+    admin_to_numbers = ['+2347056918098', '+2348136800327', '+2348111761948', '+2348141202769']
     url = "http://3.14.60.165:6080/api/v1/admin/droppers"
     res = requests.get(url, verify=False)
     response = res.json()
@@ -83,11 +83,11 @@ def admin_marketplace_notify():
             dist = round(float(order['delivery_distance'])/1000, 1)
             fee = order['delivery_fee']
 
-            if int(fee) == 0:
-                if dist <= 4:
-                    fee = 200
-                else:
-                    fee = dist * 60
+            # if int(fee) == 0:
+            #     if dist <= 4:
+            #         fee = 200
+            #     else:
+            #         fee = dist * 60
 
             body = f"{order['customer_name']} just ordered a meal from {order['store_name']}. The meal is to be delivered to {order['customer_location']}. You can reach {order['customer_name']} via this phone number {order['customer_phone_number']}. This order is {order['status']}.  The delivery fee is {fee}. For more info on this order, check the app."
             for number in admin_to_numbers:
