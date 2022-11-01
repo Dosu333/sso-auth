@@ -13,7 +13,8 @@ class Wallet(models.Model):
     bank = models.CharField(max_length=255, blank=True, null=True)
     bvn = models.CharField(max_length=11, blank=True, null=True)
     customer_code = models.CharField(max_length=255, blank=True, null=True)
-    virtual_bank_account = models.CharField(max_length=10, blank=True, null=True)
+    virtual_account_number = models.CharField(max_length=10, blank=True, null=True)
+    virtual_bank_account_name = models.CharField(max_length=225, blank=True, null=True)
     virtual_bank = models.CharField(max_length=225, blank=True, null=True)
 
     def __str__(self):

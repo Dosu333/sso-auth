@@ -14,6 +14,7 @@ from boxin.models import BoxinHero
 from wallet.models import Wallet
 from .models import Token, User
 from .tasks import send_new_user_email, send_password_reset_email
+from wallet.vba import VirtualBankAccount
 
 
 def resend_mail(user):
@@ -68,7 +69,8 @@ class CreateUserSerializer(serializers.ModelSerializer):
         else:
             user = User.objects.create_user(**validated_data)
 
-        Wallet.objects.create(owner=user)
+        acct_no = VirtualBankAccount(first_name=user.firstname, last_name=user.lastname, phone=user.phone, email=user.email).create_virtual_bank_account()
+        Wallet.objects.create(owner=user, virtual_account_number=acct_no['account_no'], virtual_bank=acct_no['bank'], virtual_bank_account_name=acct_no['account_name'], customer_code=acct_no['customer'])
 
         token, _ = Token.objects.update_or_create(
             user=user, token_type='ACCOUNT_VERIFICATION',

@@ -39,16 +39,25 @@ def webhook(request):
 
         if request.data['event'] == 'charge.success':
             print('Im in event 4')
-            # print(request.data)
+            print(request.data)
             ref = request.data['data']['reference']
             app = request.data['data']['metadata']['app']
             amount = request.data['data']['amount']
             # user = request.data['data']['metadata']['user_id']
             try:
                 if app == 'delivery-dashboard':
-                    url = f'https://delivery.boxin.ng/api/v1/deliveries/update-offstordelivery/?ref={ref}&amount={amount}'
+                    url = f'https://delivery.boxin.ng/api/v1/deliveries/update-offstordelivery/?ref={ref}&amount={amount}&type=offstore'
                     # user = get_user_model().objects.get(id=user)
                     # transaction, created = Transaction.objects.update_or_create(reference=ref, owner=user, amount=amount, defaults={'status': 'SUCCESSFUL'})
+                    res = requests.get(url, verify=False)
+                    response = res.json()
+
+                    if response['success']:
+                        return Response(status=status.HTTP_200_OK)
+
+                if not app:
+                    url = f'https://delivery.boxin.ng/api/v1/deliveries/update-offstordelivery/?ref={ref}&amount={amount}&type=api'
+
                     res = requests.get(url, verify=False)
                     response = res.json()
 
