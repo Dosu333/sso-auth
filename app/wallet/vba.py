@@ -31,7 +31,7 @@ class VirtualBankAccount:
         customer = self.create_customer()
         data = {
             'customer': customer,
-            'preferred_bank': "test-bank"
+            'preferred_bank': "wema-bank"
         }
 
         res = requests.post(url, data=data, headers=self.headers)
