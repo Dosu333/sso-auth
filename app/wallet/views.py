@@ -39,7 +39,7 @@ def webhook(request):
 
         if request.data['event'] == 'charge.success':
             print('Im in event 4')
-            print(request.data)
+            print(request.data) 
             ref = request.data['data']['reference']
             app = request.data['data']['metadata']['app']
             amount = request.data['data']['amount']

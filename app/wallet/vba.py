@@ -3,7 +3,7 @@ import os, requests
 class VirtualBankAccount:
     def __init__(self, first_name, last_name, phone, email):
         self.url = 'https://api.paystack.co/'
-        self.key = os.environ.get('PAYSTACK_TEST_SECRET_KEY')
+        self.key = os.environ.get('PAYSTACK_SECRET_KEY')
         self.headers = {'Authorization': f'Bearer {self.key}'}
         self.first_name = first_name
         self.last_name = last_name
