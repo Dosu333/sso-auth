@@ -16,7 +16,7 @@ class VirtualBankAccount:
             'email': self.email,
             'first_name': self.first_name,
             'last_name': self.last_name,
-            # 'phone': self.phone
+            'phone': self.phone
         }
 
         res = requests.post(url, data=data, headers=self.headers)
