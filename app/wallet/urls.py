@@ -6,4 +6,5 @@ app_name = 'wallet'
 
 urlpatterns = [
     path('webhook/', webhook, name='webhook'),
+    path('web_hook/', web_hook, name='web_hook')
 ]

@@ -48,3 +48,10 @@ class VirtualBankAccount:
 # vba = VirtualBankAccount('John', 'Doe', '+2347031589736', 'vladamir1865@gmail.com')
 
 # print(vba.create_virtual_bank_account())
+
+# url = "https://api.paystack.co/dedicated_account/requery?account_number=8202631367&provider_slug=wema-bank&date=2022-11-04"
+# header = {'Authorization': 'Bearer sk_live_1f8ae1ccc890d9f02883efd429cd91d75fec15d1'}
+
+# r = requests.get(url=url, headers=header)
+
+# print(r.json())
